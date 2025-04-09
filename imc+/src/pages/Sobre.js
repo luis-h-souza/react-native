@@ -17,6 +17,7 @@ const  Sobre = () => {
       <Text style={styles.texto}>Este é o conteúdo.</Text>
 
       <BotaoCalcular />
+      
     </View>
     </LinearGradient>
   );

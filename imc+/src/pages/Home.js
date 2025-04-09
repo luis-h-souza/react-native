@@ -4,6 +4,9 @@ import styles from '../components/Styles';
 import { useState } from 'react';
 import BotaoCalcular from '../components/BotaoCalcular';
 
+// constante de identificação do histórico
+const STORAGE_KEY = '@historico_imc';
+
 const Home = () => {
 
   const [peso, setPeso] = useState('');
@@ -11,6 +14,10 @@ const Home = () => {
   const [resultado, setResultado] = useState(null);
   const [cor, setCor] = useState('#fff');
   const [classificacao, setClassificacao] = useState('');
+
+  const salvarHistorico = async (novoRegistro) => {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stryngfy(novoRegistro))
+  }
 
   const calcular = () => {
 
@@ -46,63 +53,73 @@ const Home = () => {
         setResultado(`Seu IMC é de: ${imc}`)
         setClassificacao('Você está em obesidade grau III.')
         setCor('#C0392B')
+
       } else {
         setResultado(`Valor não encontrado.`);
       }
+
+      const dataHora = new Date().toLocaleString()
+        const novoRegistro = {
+          imc: imc,
+          classificacao: classificacao,
+          dataHora: dataHora,
+        }
+        salvarHistorico(novoRegistro)
+        console.log(novoRegistro)
     }
   }
 
   return (
     <LinearGradient
-        colors={['#66687D', '#4C4C68', '#4C4C68']}
-        style={styles.gradiente}
-        start={{ x: 0.8, y: 0 }}
-        end={{ x: 0.2, y: 1 }}
-        locations={[0, 0.5, 1]}
-        >
-    // fecha o teclado quando perder o foco do input
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      colors={['#66687D', '#4C4C68', '#4C4C68']}
+      style={styles.gradiente}
+      start={{ x: 0.8, y: 0 }}
+      end={{ x: 0.2, y: 1 }}
+      locations={[0, 0.5, 1]}
+    >
 
-        <Text style={styles.h1}>IMC+</Text>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
 
-        <Text style={styles.titulo}>Peso</Text>
-        <TextInput style={styles.input}
-          keyboardType='numeric'
-          placeholder='Digite seu peso (Kg)'
-          value={peso}
-          onChangeText={setPeso}
-        />
+          <Text style={styles.h1}>IMC+</Text>
 
-        <Text style={styles.titulo}>Altura</Text>
-        <TextInput style={styles.input}
-          keyboardType='numeric'
-          placeholder='Digite sua altura x.xx'
-          value={altura}
-          onChangeText={setAltura}
-        />
+          <Text style={styles.titulo}>Peso</Text>
+          <TextInput style={styles.input}
+            keyboardType='numeric'
+            placeholder='Digite seu peso (Kg)'
+            value={peso}
+            onChangeText={setPeso}
+          />
 
-        <BotaoCalcular />
-        
-        <LinearGradient
-        colors={['#EB335C', '#851D34']}
-        style={styles.gradienteBtn}
-        start={{ x:0.5, y:0 }}
-        end={{ x:0.5, Y:1 }}
-        >
-          <Pressable onPress={calcular} >
-            <Text style={styles.btnTxt}>Calcular</Text>
-          </Pressable>
-        </LinearGradient>
-        
+          <Text style={styles.titulo}>Altura</Text>
+          <TextInput style={styles.input}
+            keyboardType='numeric'
+            placeholder='Digite sua altura x.xx'
+            value={altura}
+            onChangeText={setAltura}
+          />
 
-        <Text style={[styles.resultado, { color: cor }]} >
-          {resultado}
-        </Text>
-        {classificacao && <Text style={styles.classificacao}> Classificação: {classificacao}</Text>}
+          <BotaoCalcular />
 
-      </View>
-    </TouchableWithoutFeedback>
+          <LinearGradient
+            colors={['#EB335C', '#851D34']}
+            style={styles.gradienteBtn}
+            start={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, Y: 1 }}
+          >
+            <Pressable onPress={calcular} >
+              <Text style={styles.btnTxt}>Calcular</Text>
+            </Pressable>
+          </LinearGradient>
+
+
+          <Text style={[styles.resultado, { color: cor }]} >
+            {resultado}
+          </Text>
+          {classificacao && <Text style={styles.classificacao}> Classificação: {classificacao}</Text>}
+
+        </View>
+      </TouchableWithoutFeedback>
     </LinearGradient>
   );
 }

@@ -1,7 +1,7 @@
 import { Button } from "react-native-paper";
 
 const BotaoCalcular = () => {
-  <Button icon='camera' mode='contained'>
+  <Button icon='arrow-right-thick' mode='contained'>
     Calcular IMC
   </Button>
 }

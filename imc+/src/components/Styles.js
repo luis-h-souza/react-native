@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   h1: {
-    fontSize: 32,
+    fontSize: 38,
     fontWeight: 'bold',
     color: '#F23869',
     marginBlock: 20,
@@ -16,9 +16,14 @@ const styles = StyleSheet.create({
   },
   titulo: {
     marginBlock: 20,
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#5e8e',
+    color: '#F23869',
+  },
+  texto: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#d4d4f4'
   },
   classificacao: {
     fontSize: 18,
@@ -26,8 +31,8 @@ const styles = StyleSheet.create({
     color: '#d4d4f4'
   },
   input: {
-    width: '80%',
-    height: 50,
+    width: '90%',
+    height: 60,
     borderRadius: 16,
     padding: 10,
     fontSize: 18,
@@ -51,13 +56,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     position: 'absolute',
     bottom: 20,
-    right: 10
+    right: 6
   },
   resultado: {
     fontSize: 24,
     color: '#fff',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop:20
   },
   gradiente: {
     width: '100%',
