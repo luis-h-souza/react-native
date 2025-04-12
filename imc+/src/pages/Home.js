@@ -1,10 +1,11 @@
 import { Pressable, Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../components/Styles';
 import { useState } from 'react';
 import BotaoCalcular from '../components/BotaoCalcular';
 
-// constante de identificação do histórico
+// chave de identificação do histórico
 const STORAGE_KEY = '@historico_imc';
 
 const Home = () => {
@@ -15,9 +16,16 @@ const Home = () => {
   const [cor, setCor] = useState('#fff');
   const [classificacao, setClassificacao] = useState('');
 
-  const salvarHistorico = async (novoRegistro) => {
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stryngfy(novoRegistro))
-  }
+  const salvarNoHistorico = async (novoRegistro) => {
+    try {
+      const json = await AsyncStorage.getItem(STORAGE_KEY);
+      const historicoAtual = json ? JSON.parse(json) : [];
+      const novoHistorico = [novoRegistro, ...historicoAtual];
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(novoHistorico));
+    } catch (e) {
+      console.error("Erro ao salvar histórico:", e);
+    }
+  };
 
   const calcular = () => {
 
@@ -29,43 +37,48 @@ const Home = () => {
       // claculo do IMC
       const imc = (p / (a * a)).toFixed(2);
 
+      let corAtual = '';
+      let classificacaoAtual = '';
+
       if (imc < 18.5) {
         setResultado(`Seu IMC é de: ${imc}`)
-        setClassificacao('Você está abaixo do peso ideal.')
-        setCor('#4A90E2');
+        classificacaoAtual = "Você está abaixo do peso ideal."
+        corAtual = '#4A90E2';
       } else if (imc >= 18.5 && imc < 24.9) {
         setResultado(`Seu IMC é de: ${imc}`)
-        setClassificacao('Você está com o peso ideal.')
-        setCor('#2ECC71');
+        classificacaoAtual = 'Você está com o peso ideal.'
+        corAtual = '#2ECC71';
       } else if (imc >= 25 && imc < 29.9) {
         setResultado(`Seu IMC é de: ${imc}`)
-        setClassificacao('Você está com sobrepeso.')
-        setCor('#F1C40F')
+        classificacaoAtual = 'Você está com sobrepeso.'
+        corAtual = '#F1C40F'
       } else if (imc >= 30 && imc < 34.9) {
         setResultado(`Seu IMC é de: ${imc}`)
-        setClassificacao('Você está em obesidade grau I.')
-        setCor('#E67E22');
+        classificacaoAtual = 'Você está em obesidade grau I.'
+        corAtual = '#E67E22';
       } else if (imc >= 35 && imc < 39.9) {
         setResultado(`Seu IMC é de: ${imc}`)
-        setClassificacao('Você está em obesidade grau II.')
-        setCor('#D35400');
+        classificacaoAtual = 'Você está em obesidade grau II.'
+        corAtual = '#D35400';
       } else if (imc >= 40) {
         setResultado(`Seu IMC é de: ${imc}`)
-        setClassificacao('Você está em obesidade grau III.')
-        setCor('#C0392B')
+        classificacaoAtual = 'Você está em obesidade grau III.'
+        corAtual = '#C0392B';
 
       } else {
         setResultado(`Valor não encontrado.`);
       }
 
+      setClassificacao(classificacaoAtual);
+      setCor(corAtual);
+
       const dataHora = new Date().toLocaleString()
-        const novoRegistro = {
-          imc: imc,
-          classificacao: classificacao,
-          dataHora: dataHora,
-        }
-        salvarHistorico(novoRegistro)
-        console.log(novoRegistro)
+      const novoRegistro = {
+        imc: imc,
+        classificacao: classificacaoAtual,
+        dataHora: dataHora,
+      }
+      salvarNoHistorico(novoRegistro)
     }
   }
 
@@ -99,8 +112,6 @@ const Home = () => {
             onChangeText={setAltura}
           />
 
-          <BotaoCalcular />
-
           <LinearGradient
             colors={['#EB335C', '#851D34']}
             style={styles.gradienteBtn}
@@ -111,7 +122,6 @@ const Home = () => {
               <Text style={styles.btnTxt}>Calcular</Text>
             </Pressable>
           </LinearGradient>
-
 
           <Text style={[styles.resultado, { color: cor }]} >
             {resultado}

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   titulo: {
     marginBlock: 20,
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#F23869',
   },
@@ -42,12 +42,16 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 60,
     borderRadius: 16,
-    backgroundColor: '#5e8e',
+    backgroundColor: '#EB335C',
     marginBlock: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderStyle: 'solid',
-    borderWidth: 1,
+    boxShadow: "0 2px 4px #000"
+  },
+  botao: {
+    marginBlock: 20,
+    backgroundColor: '#5e8e',
   },
   btnTxt: {
     fontSize: 24,
