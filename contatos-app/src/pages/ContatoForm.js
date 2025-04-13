@@ -6,6 +6,6 @@ import estilos from "../components/Estilos"
 export default function ContatoForm() {
   
   return (
-    <Text estilos={estilos.container}>Página de Formulário</Text>
+    <Text >Página de Formulário</Text>
   )
 }

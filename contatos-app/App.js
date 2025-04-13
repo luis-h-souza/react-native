@@ -10,8 +10,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator inicialRouteName='Listagem'>
-        <Stack.Screen name='Listagem' cmponent={ContatoLista} />
-        <Stack.Screen name='Formulário' cmponent={ContatoForm} />
+        <Stack.Screen name='Listagem' component={ContatoLista} />
+        <Stack.Screen name='Formulário' component={ContatoForm} />
       </Stack.Navigator>
     </NavigationContainer>
   )
