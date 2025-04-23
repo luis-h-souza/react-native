@@ -23,7 +23,7 @@ COLORS
   #BCBCBC -> info / divisor
   #E6E6E6
   #FFFFFF -> textBtn
-box-shadow: 0px 4px 10px 0px #0000000A;
+  box-shadow: 0px 4px 10px 0px #0000000A;
 
 radios btn 4px
 
@@ -33,7 +33,6 @@ height: 50;
 top: 149px;
 left: 390px;
 border-radius: 25px;
-
 
 TYPOGRAPHY
   H2 -> font-size: 22px;
