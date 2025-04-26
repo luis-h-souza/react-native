@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { View, Text, Button, FlatList, Pressable } from "react-native"
+import { View, Text, Button, FlatList, TextInput, Pressable } from "react-native"
 import { useIsFocused } from "@react-navigation/native"
 import api from "../services/Api"
 import estilos from "../components/Estilos"
@@ -9,7 +9,10 @@ import NovoContato from "../components/BotaoNovoContato"
 export default function ContatoLista({ navigation }) {
 
   const [contatos, setConatos] = useState([])
+  const [busca, setBusca] = useState('')
   const isFocused = useIsFocused()
+
+  const contatosFiltrados = contatos.filter(contato => contato.nome.toLowerCase().includes(busca.toLowerCase()))
 
   const carregarContatos = async () => {
     try {
@@ -27,13 +30,25 @@ export default function ContatoLista({ navigation }) {
   return (
     <View style={estilos.container}>
 
-      <NovoContato navigation={navigation} />
+      <TextInput
+        style={estilos.inputSearch}
+        placeholder="Buscar contato..."
+        value={busca}
+        onChangeText={setBusca}
+      />
+
+      <Pressable style={estilos.button} onPress={() => navigation.navigate('Formulário')}>
+        <Text style={estilos.buttonText}>NOVO CONTATO</Text>
+      </Pressable>
 
       <FlatList
-        data={contatos}
-        keyExtractor={item => item.id.toString()}
+        data={contatosFiltrados}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <ContatoItem item={item} />
+          <ContatoItem item={item}
+            onEdit={() => navigation.navigate('Formulário', { item: item })}
+            onDelete={carregarContatos}
+          />
         )}
       >
 

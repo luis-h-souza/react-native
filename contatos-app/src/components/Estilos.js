@@ -8,7 +8,7 @@ const estilos = StyleSheet.create({
   },
   button: {
     backgroundColor: '#5061FC',
-    paddingBlock: 14,
+    paddingBlock: 18,
     borderRadius: 12,
     marginBottom: 24,
     boxShadow: '0 4px 4px 0 #0000000A'
@@ -48,8 +48,26 @@ const estilos = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 12,
     paddingVertical: 16,
+    paddingLeft: 16,
     minWidth: 120,
     borderRadius: 12,
+    marginBottom: 16,
+    boxShadow: '0 4px 4px 0 #0000000A',
+  },
+  inputSexo: {
+    minwidth: 120,
+    borderRadius: 12,
+    borderBottomLeftRadius: 10,
+    backgroundColor: '#FFFFFF',
+    boxShadow: '0 4px 4px 0 #0000000A',
+    marginBottom: 16
+  },
+  inputSearch: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    minWidth: 120,
+    borderRadius: 16,
     marginBottom: 16,
     boxShadow: '0 4px 4px 0 #0000000A'
   },

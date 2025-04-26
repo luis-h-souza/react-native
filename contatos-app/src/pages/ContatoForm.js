@@ -2,11 +2,28 @@ import React, { useEffect, useState } from "react"
 import { View, Text, TextInput, Button, FlatList, Alert, Pressable } from "react-native"
 import api from "../services/Api"
 import estilos from "../components/Estilos"
+import { Picker } from "@react-native-picker/picker"
 
-export default function ContatoForm({ navigation }) {
+export default function ContatoForm({ navigation, route }) {
   const [nome, setNome] = useState("");
   const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
+  const [idade, setIdade] = useState("");
+  const [sexo, setSexo] = useState("");
+
+  const itensContato = route.params?.item;
+  console.log(itensContato)
+
+  useEffect(() => {
+    if (itensContato) {
+      setNome(itensContato.nome);
+      setCelular(itensContato.celular);
+      setEmail(itensContato.email);
+      setIdade(itensContato.idade);
+      setSexo(itensContato.sexo);
+    }
+  }, [itensContato])
+  console.log(nome)
 
   const salvarContato = async () => {
     // Função para validar e-mail
@@ -16,7 +33,7 @@ export default function ContatoForm({ navigation }) {
     };
 
     // Verifica se todos os campos estão preenchidos
-    if (!nome || !celular || !email) {
+    if (!nome || !celular || !email || !idade || !sexo) {
       Alert.alert("Atenção!", "Todos os campos são obrigatórios.");
       return;
     }
@@ -29,7 +46,11 @@ export default function ContatoForm({ navigation }) {
 
     // Chamar a API para gravar os dados
     try {
-      await api.post("/", { nome, celular, email });
+      if (itensContato) {
+        await api.put(`/${itensContato.id}`, { nome, celular, email, idade, sexo });
+      } else {
+        await api.post("/", { nome, celular, email, idade, sexo });
+      }
       // Volta para a lista de contatos
       navigation.goBack();
     } catch (error) {
@@ -44,22 +65,37 @@ export default function ContatoForm({ navigation }) {
         style={estilos.input}
         placeholder="Nome"
         value={nome}
-        onChangeText={setNome} // Corrigido para onChangeText
+        onChangeText={setNome}
       />
       <TextInput
         style={estilos.input}
         placeholder="Celular"
         value={celular}
-        onChangeText={setCelular} // Corrigido para onChangeText
+        onChangeText={setCelular} 
       />
       <TextInput
         style={estilos.input}
         placeholder="E-mail"
         value={email}
-        onChangeText={setEmail} // Corrigido para onChangeText
+        onChangeText={setEmail} 
         keyboardType="email-address" // Define o teclado para e-mail
         autoCapitalize="none" // Evita capitalização automática
       />
+      <TextInput
+        style={estilos.input}
+        placeholder="Idade"
+        value={idade}
+        onChangeText={setIdade} 
+        autoCapitalize="none" // Evita capitalização automática
+      />
+      <View style={estilos.inputSexo}>
+        <Picker selectedValue={sexo} onValueChange={itemValue => setSexo(itemValue)} >
+          <Picker.Item label="Selecione o sexo" value="" style={{ color: 'rgba(0, 0, 0, 0.5)' }} />
+          <Picker.Item label="Masculino" value="Masculino" />
+          <Picker.Item label="Feminino" value="Feminino" />
+        </Picker>
+      </View>
+
       <Pressable style={estilos.button} onPress={salvarContato}>
         <Text style={estilos.buttonText}>SALVAR</Text>
       </Pressable>
