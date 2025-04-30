@@ -11,6 +11,7 @@ font-family: Sora;
 COLORS
   #F6F5FC -> BG
   #E0E3FF -> BG Label
+  #6200ee
   #6674F4
   #5061FC -> botão
   #3346F0

@@ -86,7 +86,7 @@ export default function ContatoForm({ navigation, route }) {
         placeholder="Idade"
         value={idade}
         onChangeText={setIdade} 
-        autoCapitalize="none" // Evita capitalização automática
+        autoCapitalize="none"
       />
       <View style={estilos.inputSexo}>
         <Picker selectedValue={sexo} onValueChange={itemValue => setSexo(itemValue)} >

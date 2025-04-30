@@ -37,7 +37,7 @@ export default function ContatoLista({ navigation }) {
         onChangeText={setBusca}
       />
 
-      <Pressable style={estilos.button} onPress={() => navigation.navigate('Formulário')}>
+      <Pressable style={estilos.button} onPress={() => navigation.navigate('Formulário')} >
         <Text style={estilos.buttonText}>NOVO CONTATO</Text>
       </Pressable>
 

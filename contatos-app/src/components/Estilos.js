@@ -3,8 +3,17 @@ import { StyleSheet } from "react-native"
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 12,
     backgroundColor: '#F6F5FC'
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 32,
+    marginTop: 100,
+    color: '#5061FC',
+    textAlign: 'center',
+    textTransform: 'uppercase'
   },
   button: {
     backgroundColor: '#5061FC',
