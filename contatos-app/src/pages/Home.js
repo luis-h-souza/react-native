@@ -9,32 +9,39 @@ export default function Home({ navigation }) {
   const [localizacao, setLocalizacao] = useState(null)
   const [erro, setErro] = useState(null)
 
-  // useEffect(() => {
-    async function detectarLocalizacao() {
-      try {
-        // Pedir permissão do usuário para rastrear sua localização
-        // Desestruturação do objeto
-        let { status } = await Location.requestForegroundPermissionsAsync()
-        console.log(localizacao)
-        if (status != "granted") {
-          setErro('Permissão negada para acessar a localiação.')
-          return
-        }
-      } catch (e) {
-        setErro('Erro ao detectar a localização.')
-      }
-      // Obter a localização do usuário
-  //     localizacao = await Location.getCurrentPositionAsync({});
-  //     setLocalizacao(localizacao);
-  //   }
-  //   detectarLocalizacao();
-  // }, []);
+  const verificarLocalizacao = false
 
-  // let text = 'Waiting...';
-  // if (erro) {
-  //   text = erro;
-  // } else if (localizacao) {
-  //   text = JSON.stringify(localizacao);
+  async function detectarLocalizacao() {
+    try {
+      // Pedir permissão do usuário para rastrear sua localização
+      // Desestruturação do objeto
+      let { status } = await Location.requestForegroundPermissionsAsync({})
+      // console.log(localizacao)
+      if (status != "granted") {
+        setErro('Permissão negada para acessar a localiação.')
+        return
+      }
+
+      // Havendo permissão, obter as coordenadas
+      let localiaçãoAtual = await Location.getCurrentPositionAsync({})
+
+      // Obeter o endereço
+      let endereco = await Location.reverseGeocodeAsync({
+        latitude: localiaçãoAtual.coords.latitude,
+        longitude: localiaçãoAtual.coords.longitude
+      })
+      if (endereco.length > 0) {
+        // console.log(endereco)
+        let local = endereco[0]
+        // Atualizar o estado com as coordenadas
+        setLocalizacao(`
+          ${local.street}, Nº ${local.streetNumber}, ${local.district}${local.subregion}/${local.region}, ${local.country} CEP: ${local.postalCode}
+        `)
+        
+      }
+    } catch (e) {
+      setErro('Erro ao detectar a localização.')
+    }
   }
 
   return (
@@ -42,15 +49,25 @@ export default function Home({ navigation }) {
       <Text style={estilos.title}>
         Bem Vindo ao App de Contatos
       </Text>
-      <Button style={estilos.button} mode="contained" onPress={() => navigation.navigate('Listagem')} icon={"format-list-bulleted-square"} labelStyle={estilos.buttonText}>
+
+      <Button style={estilos.button} mode="contained" onPress={() => navigation.navigate('Lista de Contatos')} icon={"format-list-bulleted-square"} labelStyle={estilos.buttonText}>
         LISTA DE CONTATOS
       </Button>
-      <Button style={estilos.button} mode="contained" labelStyle={estilos.buttonText} disabled>
-        USO FUTURO
+
+      <Button style={estilos.button} mode="contained" onPress={() => navigation.navigate('Lista de Tarefas')} icon={"plus-circle-outline"} labelStyle={estilos.buttonText}>
+        LITA DE TAREFAS
       </Button>
+
       <Button style={estilos.button} mode="contained" labelStyle={estilos.buttonText} icon={'map-marker'} onPress={detectarLocalizacao}>
         DETECTAR LOCALIZAÇÃO
       </Button>
-    </View>
+
+        <View style={[estilos.linha, estilos.localizacao]}>
+          {localizacao && <Text style={estilos.h2}>Sua localização:</Text>}
+          {localizacao &&
+            <Text style={estilos.info}>{localizacao}</Text>}
+          {erro && <Text>{erro}</Text>}
+        </View>
+      </View>
   )
 }

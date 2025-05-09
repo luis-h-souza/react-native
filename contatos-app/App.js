@@ -2,6 +2,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ContatoLista from './src/pages/ContatoLista'
 import ContatoForm from './src/pages/ContatoForm'
+import ListarTarefa from './src/pages/ListarTarefa'
+import TarefaForm from './src/pages/TarefaForm'
 import Home from './src/pages/Home'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { StatusBar } from 'react-native'
@@ -28,13 +30,22 @@ export default function App() {
             options={{ title: 'Home' }}
           />
           <Stack.Screen
-            name='Listagem'
+            name='Lista de Contatos'
             component={ContatoLista}
             options={{ title: 'Lista de Contatos' }}
           />
           <Stack.Screen
             name='Formulário'
             component={ContatoForm}
+          />
+          <Stack.Screen
+            name='Lista de Tarefas'
+            component={ListarTarefa}
+            options={{ title: 'Lista de Tarefas' }}
+          />
+          <Stack.Screen
+            name='Formulário de Tarefas'
+            component={TarefaForm}
           />
         </Stack.Navigator>
       </NavigationContainer>

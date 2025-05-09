@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { View, Text, Button, Alert } from "react-native"
 import { Menu, IconButton } from "react-native-paper"
-import api from "../services/Api"
+import {api} from "../services/Api"
 import estilos from "./Estilos"
 
 export default function ContatoItem({ item, onDelete, onEdit }) {

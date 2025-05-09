@@ -34,18 +34,31 @@ const estilos = StyleSheet.create({
     borderLeftColor: '#6674F4',
     borderRadius: 12,
     padding: 10,
-    marginBottom: 14,
+    marginBlock: 14,
     boxShadow: '0 4px 4px 0 #0000000A'
   },
+  localizacao: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    borderRighttWidth: 3,
+    borderRightColor: '#6674F4'
+  },
   nome: {
-    fontSize: 21,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#5061FC',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    marginBottom: 10
+  },
+  spanInfo: {
+    fontWeight: 'bold',
+    color: '#6674F4',
   },
   info: {
     color: '#BCBCBC',
-    fontSize: 16,
+    fontSize: 16
   },
   h2: {
     fontSize: 22,

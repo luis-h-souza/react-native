@@ -1,7 +1,9 @@
 import axios from "axios"
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: "https://limeiraweb.com.br/api/contato"
 })
 
-export default api
+export const apiTarefas = axios.create({
+  baseURL: "https://limeiraweb.com.br/api/tarefas"
+})

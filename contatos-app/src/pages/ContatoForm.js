@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { View, Text, TextInput, Button, FlatList, Alert, Pressable } from "react-native"
-import api from "../services/Api"
+import {api} from "../services/Api"
 import estilos from "../components/Estilos"
 import { Picker } from "@react-native-picker/picker"
 
@@ -23,7 +23,6 @@ export default function ContatoForm({ navigation, route }) {
       setSexo(itensContato.sexo);
     }
   }, [itensContato])
-  console.log(nome)
 
   const salvarContato = async () => {
     // Função para validar e-mail
