@@ -89,38 +89,62 @@ const App = () => {
     setEndDate(currentDate);
   };
 
+  import React, { useState } from "react";
+import { View, Text, TextInput, Pressable, Button, Platform } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
+const TarefaForm = () => {
+  const [descricao, setDescricao] = useState("");
+  const [status, setStatus] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [mostarInicioDatePicker, setMostarInicioDatePicker] = useState(false);
+
+  const onStartDateChange = (event, selectedDate) => {
+    if (Platform.OS === "android") {
+      setMostarInicioDatePicker(false); // Fecha o DatePicker no Android
+    }
+    if (selectedDate) {
+      setStartDate(selectedDate); // Atualiza a data
+    }
+  };
+
+  const salvarTarefa = () => {
+    console.log("Descrição:", descricao);
+    console.log("Status:", status);
+    console.log("Data de Início:", startDate);
+  };
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={{ marginBottom: 20 }}>
-        <Button title="Select Start Date" onPress={() => setShowStartDatePicker(true)} />
-        {showStartDatePicker && (
-          <DateTimePicker
-            testID="startDatePicker"
-            value={startDate}
-            mode="date"
-            is24Hour={true}
-            display="default"
-            onChange={onStartDateChange}
-          />
-        )}
-        <Text>{`Start Date: ${startDate.toLocaleDateString()}`}</Text>
-      </View>
-      <View>
-        <Button title="Select End Date" onPress={() => setShowEndDatePicker(true)} />
-        {showEndDatePicker && (
-          <DateTimePicker
-            testID="endDatePicker"
-            value={endDate}
-            mode="date"
-            is24Hour={true}
-            display="default"
-            onChange={onEndDateChange}
-          />
-        )}
-        <Text>{`End Date: ${endDate.toLocaleDateString()}`}</Text>
-      </View>
+    <View>
+      <TextInput
+        style={{ borderWidth: 1, marginBottom: 10 }}
+        placeholder="Descrição"
+        value={descricao}
+        onChangeText={setDescricao}
+      />
+      <TextInput
+        style={{ borderWidth: 1, marginBottom: 10 }}
+        placeholder="Status"
+        value={status}
+        onChangeText={setStatus}
+      />
+      <Pressable style={{ padding: 10, backgroundColor: "blue" }} onPress={salvarTarefa}>
+        <Text style={{ color: "white" }}>SALVAR</Text>
+      </Pressable>
+      
+      <Button title="Selecionar Data de Início" onPress={() => setMostarInicioDatePicker(true)} />
+      {mostarInicioDatePicker && (
+        <DateTimePicker
+          testID="startDatePicker"
+          value={startDate}
+          mode="date"
+          is24Hour={true}
+          display="default"
+          onChange={onStartDateChange}
+        />
+      )}
     </View>
   );
 };
 
-export default App;
+export default TarefaForm;

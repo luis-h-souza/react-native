@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { View, Text, TextInput, Button, FlatList, Alert, Pressable } from "react-native"
 import { api } from "../services/Api"
 import estilos from "../components/Estilos"
-import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function TarefaForm({ navigation, route }) {
 
@@ -15,26 +15,36 @@ export default function TarefaForm({ navigation, route }) {
   const [mostarInicioDatePicker, setMostarInicioDatePicker] = useState(false);
   const [mostarFimDatePicker, setMostarFimDatePicker] = useState(false);
 
+  // const onStartDateChange = (event, selectedDate) => {
+  //   if (Platform.OS === "android") {
+  //     setMostarInicioDatePicker(false); // Fecha o DatePicker no Android
+  //   }
+  //   if (selectedDate) {
+  //     setStartDate(selectedDate); // Atualiza a data
+  //   }
+  // };
+
   const onStartDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || startDate;
-    setMostarInicioDatePicker(false);
-    setDataInicial(currentDate);
+    if (selectedDate) {
+      const apenasData = selectedDate.toISOString().split("T")[0]; // Extrai apenas a data no formato YYYY-MM-DD
+      setDataInicial(apenasData); // Atualiza o estado com a data
+    }
+    setMostarInicioDatePicker(false); // Fecha o DatePicker
   };
 
   const onEndDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || endDate;
-    setMostarFimDatePicker(false);
-    setPrazo(currentDate);
+    setMostarFimDatePicker(false); // Fecha o DatePicker após a seleção
+    if (selectedDate) {
+      setPrazo(selectedDate.toISOString().split("T")[0]); // Atualiza o estado com a data selecionada como string
+    }
   };
 
-
   const itensTarefa = route.params?.item;
-  console.log(itensTarefa)
 
   useEffect(() => {
     if (itensTarefa) {
       setResponsavel(itensTarefa.responsavel);
-      setData(itensTarefa.data);
+      setDataInicial(itensTarefa.dataInicial);
       setPrazo(itensTarefa.prazo);
       setDescricao(itensTarefa.descricao);
       setStatus(itensTarefa.status);
@@ -51,17 +61,22 @@ export default function TarefaForm({ navigation, route }) {
 
     try {
       if (itensTarefa) {
-        await api.put(`/${itensTarefa.id}`, { responsavel, data, prazo, descricao, status });
+        await api.put(`/${itensTarefa.id}`, { responsavel, dataInicial, prazo, descricao, status });
+
       } else {
-        await api.post("/", { responsavel, data, prazo, descricao, status });
+        console.log({responsavel, dataInicial, prazo, descricao, status})
+        await api.post("/", { responsavel, dataInicial, prazo, descricao, status });
       }
       // Volta para a lista de contatos
       navigation.goBack();
     } catch (error) {
       Alert.alert("Erro ao salvar tarefa!", error.message);
     }
-  };
 
+    console.log("Descrição:", descricao);
+    console.log("Status:", status);
+
+  };
 
   return (
     <View style={estilos.container}>
@@ -72,18 +87,55 @@ export default function TarefaForm({ navigation, route }) {
         value={responsavel}
         onChangeText={setResponsavel}
       />
-      <TextInput
-        style={estilos.input}
-        placeholder="Inicio"
-        value={dataInicial}
-        onChangeText={setDataInicial}
-      />
-      <TextInput
-        style={estilos.input}
-        placeholder="Conclusão em"
-        value={prazo}
-        onChangeText={setPrazo}
-      />
+
+      <View style={estilos.inputContainer}>
+        <Pressable style={estilos.buttonData} onPress={() => setMostarInicioDatePicker(true)} >
+          <Text style={estilos.buttonText}>Data de Inicio</Text>
+          {mostarInicioDatePicker && (
+            <DateTimePicker
+              testID="startDatePicker"
+              value={dataInicial}
+              mode="date"
+              is24Hour={true}
+              display="calendar"
+              onChange={onStartDateChange}
+            />
+          )}
+        </Pressable>
+
+        <TextInput
+          style={estilos.inputData}
+          placeholder="Inicio"
+          value={dataInicial ? new Date(prazo).toLocaleDateString() : ""}
+          onFocus={() => setMostarInicioDatePicker(true)} // Abre o DatePicker ao focar no campo
+          // editable={false} // Impede edição direta
+        />
+      </View>
+
+      <View style={estilos.inputContainer}>
+        <Pressable style={estilos.buttonData} onPress={() => setMostarFimDatePicker(true)} >
+          <Text style={estilos.buttonText}>Prazo Final</Text>
+          {mostarFimDatePicker && (
+            <DateTimePicker
+              testID="endDatePicker"
+              value={prazo}
+              mode="date"
+              is24Hour={true}
+              display="calendar"
+              onChange={onEndDateChange}
+            />
+          )}
+        </Pressable>
+
+        <TextInput
+          style={estilos.inputData}
+          placeholder="Conclusão em"
+          value={prazo ? new Date(prazo).toLocaleDateString() : ""}
+          onFocus={() => setMostarFimDatePicker(true)} // Abre o DatePicker ao focar no campo
+          // editable={false} // Impede edição direta
+        />
+      </View>
+
       <TextInput
         style={estilos.input}
         placeholder="Descrição"
@@ -100,33 +152,6 @@ export default function TarefaForm({ navigation, route }) {
       <Pressable style={estilos.button} onPress={salvarTarefa}>
         <Text style={estilos.buttonText}>SALVAR</Text>
       </Pressable>
-
-      <Button title="Select Start Date" onPress={() => setMostarInicioDatePicker(true)} />
-        {mostarInicioDatePicker && (
-          <DateTimePicker
-            testID="startDatePicker"
-            value={startDate}
-            mode="date"
-            is24Hour={true}
-            display="default"
-            onChange={onStartDateChange}
-          />
-        )}
-
-        <Text>{`Start Date: ${dataInicial.toLocaleDateString()}`}</Text>
-
-        <Button title="Select End Date" onPress={() => setMostarFimDatePicker(true)} />
-        {mostarFimDatePicker && (
-          <DateTimePicker
-            testID="endDatePicker"
-            value={prazo}
-            mode="date"
-            is24Hour={true}
-            display="default"
-            onChange={onEndDateChange}
-          />
-        )}
-        <Text>{`End Date: ${prazo.toLocaleDateString()}`}</Text>
 
     </View>
   )

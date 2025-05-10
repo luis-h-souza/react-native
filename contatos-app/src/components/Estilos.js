@@ -97,6 +97,35 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
+  inputContainer: {
+    height: '80',
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  buttonData: {
+    height: '50',
+    width: '160',
+    fontSize: 12,
+    fontWeight: 'bold',
+    backgroundColor: '#5061FC',
+    paddingBlock: 12,
+    paddingInline: 12,
+    borderRadius: 12,
+    boxShadow: '0 4px 4px 0 #0000000A'
+  },
+  inputData: {
+    backgroundColor: '#FFFFFF',
+    paddingBlock: 12,
+    paddingInline: 12,
+    paddingLeft: 16,
+    width: '180',
+    height: '50',
+    borderRadius: 12,
+    boxShadow: '0 4px 4px 0 #0000000A',
+  }
 })
 
 export default estilos

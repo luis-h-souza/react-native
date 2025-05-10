@@ -12,7 +12,6 @@ export default function ContatoForm({ navigation, route }) {
   const [sexo, setSexo] = useState("");
 
   const itensContato = route.params?.item;
-  console.log(itensContato)
 
   useEffect(() => {
     if (itensContato) {
