@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { View, Text, Button, FlatList, TextInput, Pressable } from "react-native"
 import { useIsFocused } from "@react-navigation/native"
-import {api} from "../services/Api"
+import { api } from "../services/Api"
 import estilos from "../components/Estilos"
 import ContatoItem from "../components/ContatoItem"
-import NovoContato from "../components/BotaoNovoContato"
 
 export default function ContatoLista({ navigation }) {
 

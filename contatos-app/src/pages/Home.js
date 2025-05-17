@@ -35,9 +35,9 @@ export default function Home({ navigation }) {
         let local = endereco[0]
         // Atualizar o estado com as coordenadas
         setLocalizacao(`
-          ${local.street}, Nº ${local.streetNumber}, ${local.district}${local.subregion}/${local.region}, ${local.country} CEP: ${local.postalCode}
+          ${local.street}, Nº ${local.streetNumber}, ${local.district} ${local.subregion} - ${local.region}, ${local.country} CEP: ${local.postalCode}
         `)
-        
+
       }
     } catch (e) {
       setErro('Erro ao detectar a localização.')
@@ -62,12 +62,16 @@ export default function Home({ navigation }) {
         DETECTAR LOCALIZAÇÃO
       </Button>
 
-        <View style={[estilos.linha, estilos.localizacao]}>
-          {localizacao && <Text style={estilos.h2}>Sua localização:</Text>}
-          {localizacao &&
-            <Text style={estilos.info}>{localizacao}</Text>}
-          {erro && <Text>{erro}</Text>}
+      {localizacao &&
+        <View style={estilos.localizacaoContainer}>
+          <View style={estilos.localizacao}>
+            {localizacao && <Text style={estilos.h2}>Sua localização:</Text>}
+            {localizacao &&
+              <Text style={estilos.info}>{localizacao}</Text>}
+            {erro && <Text>{erro}</Text>}
+          </View>
         </View>
-      </View>
+      }
+    </View>
   )
 }

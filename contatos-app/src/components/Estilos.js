@@ -17,8 +17,8 @@ const estilos = StyleSheet.create({
   },
   button: {
     backgroundColor: '#5061FC',
-    paddingBlock: 18,
-    borderRadius: 12,
+    paddingBlock: 14,
+    borderRadius: 16,
     marginBottom: 24,
     boxShadow: '0 4px 4px 0 #0000000A'
   },
@@ -37,13 +37,21 @@ const estilos = StyleSheet.create({
     marginBlock: 14,
     boxShadow: '0 4px 4px 0 #0000000A'
   },
-  localizacao: {
-    marginTop: 20,
-    justifyContent: 'center',
+  localizacaoContainer: {
+    backgroundColor: '#FFFFFF',
+    borderLeftWidth: 3,
+    borderLeftColor: '#6674F4',
+    borderRadius: 12,
     alignItems: 'center',
-    textAlign: 'center',
+    textAlign: 'justify',
+    padding: 10,
+    marginTop: 20,
+    boxShadow: '0 4px 4px 0 #0000000A',
+  },
+  localizacao: {
+    maxWidth: 'fit-content',
+    textAlign: 'justify',
     borderRighttWidth: 3,
-    borderRightColor: '#6674F4'
   },
   nome: {
     fontSize: 18,
@@ -77,12 +85,12 @@ const estilos = StyleSheet.create({
     boxShadow: '0 4px 4px 0 #0000000A',
   },
   inputSexo: {
-    minwidth: 120,
+    minWidth: 120,
     borderRadius: 12,
     borderBottomLeftRadius: 10,
     backgroundColor: '#FFFFFF',
     boxShadow: '0 4px 4px 0 #0000000A',
-    marginBottom: 16
+    marginVertical: 18
   },
   inputSearch: {
     backgroundColor: '#FFFFFF',
