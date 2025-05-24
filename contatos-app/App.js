@@ -24,6 +24,7 @@ export default function App() {
       <StatusBar barStyle='dark-content' backgroundColor='#E0E3FF' />
       <NavigationContainer>
         <Stack.Navigator inicialRouteName='Home' screenOptions={opcoesTela} >
+          
           <Stack.Screen
             name='Home'
             component={Home}
