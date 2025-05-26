@@ -26,10 +26,12 @@ export default function MoedaList({ navigation, item, route }) {
   return (
     <View style={styles.container}>
       <FlatList
+        style={styles.list}
+        contentContainerStyle={styles.contentContainer}
         data={moedas}
         keyExtractor={(item) => item.simbolo}
         renderItem={({ item }) => (
-          <Moeda item={item} navigation={navigation}  />
+          <Moeda item={item} navigation={navigation} />
         )}
       >
       </FlatList>

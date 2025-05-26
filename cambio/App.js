@@ -10,7 +10,7 @@ import ObterCotacao from './src/pages/ObterCotacao';
 const Stack = createNativeStackNavigator()
 
 const opcoesTela = {
-  headerStyle: { backgroundColor: '#02020', borderRadios: 12 },
+  headerStyle: { backgroundColor: '#222' },
   headerTintColor: '#f2f2f2',
   headerTitleStyle: { fontWeight: 'bold', fontSize: 24 }
 }
