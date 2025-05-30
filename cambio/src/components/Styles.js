@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     padding: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 8px 8px rgba(0, 0, 0, 0.4)'
+    boxShadow: '0 8px 8px rgba(0, 0, 0, 0.4)',
+    marginTop: 32
   }
 });
 
