@@ -11,11 +11,10 @@ const styles = StyleSheet.create({
     fontSize: 38,
     fontWeight: 'bold',
     color: '#F23869',
-    marginBlock: 20,
-    alignContent: 'start'
+    marginBlock: 24,
   },
   titulo: {
-    marginBlock: 20,
+    marginBlock: 24,
     fontSize: 32,
     fontWeight: 'bold',
     color: '#F23869',
@@ -53,33 +52,29 @@ const styles = StyleSheet.create({
     marginBlock: 20,
     backgroundColor: '#5e8e',
   },
+  bt:{
+    marginTop: 180,
+    boxShadow: "0 2px 2px #0c0c0c",
+  },
   btnTxt: {
+    minWidth: 100,
+    textAlign: 'center',
+    justifyContent: 'center',
     fontSize: 24,
-    padding: 0,
     color: '#fff',
     fontWeight: 'bold',
-    position: 'absolute',
-    bottom: 20,
-    right: 6
   },
   resultado: {
     fontSize: 24,
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop:20
+    marginTop:32
   },
   gradiente: {
     width: '100%',
     height: '100%',
   },
-  gradienteBtn: {
-  width: 100,
-  height: 100,
-  borderRadius: 100/2,
-  position: 'absolute',
-  bottom: 60,
-  }
 });
 
 export default styles;

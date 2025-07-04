@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../components/Styles';
 import { useState } from 'react';
 import BotaoCalcular from '../components/BotaoCalcular';
+import { Button } from 'react-native-paper';
 
 // chave de identificação do histórico
 const STORAGE_KEY = '@historico_imc';
@@ -72,6 +73,8 @@ const Home = () => {
       setClassificacao(classificacaoAtual);
       setCor(corAtual);
 
+      console.log(`Seu IMC é de: ${imc}`)
+
       const dataHora = new Date().toLocaleString()
       const novoRegistro = {
         imc: imc,
@@ -112,21 +115,19 @@ const Home = () => {
             onChangeText={setAltura}
           />
 
-          <LinearGradient
-            colors={['#EB335C', '#851D34']}
-            style={styles.gradienteBtn}
-            start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, Y: 1 }}
-          >
-            <Pressable onPress={calcular} >
-              <Text style={styles.btnTxt}>Calcular</Text>
-            </Pressable>
-          </LinearGradient>
-
           <Text style={[styles.resultado, { color: cor }]} >
             {resultado}
           </Text>
           {classificacao && <Text style={styles.classificacao}> Classificação: {classificacao}</Text>}
+
+          <Pressable
+            style={[styles.btn, styles.bt]}
+            onPress={calcular}
+          >
+            <Text style={styles.btnTxt}>
+              Calcular
+            </Text>
+          </Pressable>
 
         </View>
       </TouchableWithoutFeedback>
