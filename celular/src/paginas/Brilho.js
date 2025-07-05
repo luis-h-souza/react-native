@@ -34,7 +34,7 @@ export default function Brilho() {
         value={brightness}
         onValueChange={handleBrightnessChange}
       />
-      <Button title="Brilho Máximo" onPress={() => handleBrightnessChange(1)} />
+      <Button title="Brilho Máximo" onPress={() => handleBrightnessChange(1)}  style={{ marginVertical: 32 }}/>
       <Button title="Brilho Mínimo" onPress={() => handleBrightnessChange(0.1)} />
     </View>
   )

@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import * as Battery from 'expo-battery';
 
-export default function BatteryStatus() {
-  const [batteryLevel, setBatteryLevel] = useState(null);
+export default function Bateria() {
+  const [nivelBateria, setNivelBateria] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const level = await Battery.getBatteryLevelAsync();
-      setBatteryLevel(level);
+      const nivel = await Battery.getBatteryLevelAsync();
+      setNivelBateria(nivel);
     })();
 
     // Listener para atualizar em tempo real
-    const subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
-      setBatteryLevel(batteryLevel);
+    const subscription = Battery.addBatteryLevelListener(({ nivelBateria }) => {
+      setNivelBateria(nivelBateria);
     });
 
     return () => {
@@ -24,11 +24,11 @@ export default function BatteryStatus() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nível da Bateria</Text>
-      {batteryLevel === null ? (
+      {nivelBateria === null ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <Text style={styles.battery}>
-          {Math.round(batteryLevel * 100)}%
+          {Math.round(nivelBateria * 100)}%
         </Text>
       )}
     </View>

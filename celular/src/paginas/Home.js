@@ -5,17 +5,18 @@ import { Button, Text } from "react-native-paper"
 const Home = ({ navigation }) => {
 
   const buttons = [
-    // { title: "Câmera", route: "Camera" },
-    // { title: "Rede do celular", route: "Rede" },
-    // { title: "Bateria", route: "Bateria" },
-    // { title: "Brilho", route: "Brilho" },
-    // { title: "Informações", route: "Dispositivo" },
+    { title: "Câmera", route: "Camera" },
+    { title: "Rede do celular", route: "Rede" },
+    { title: "Bateria", route: "Bateria" },
+    { title: "Brilho", route: "Brilho" },
+    { title: "Informações", route: "Dispositivo" },
+    { title: "Localização", route: "Mapa" },
     { title: "Multi-step", route: "Multistep" },
   ]
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Formulário multi-step</Text>
+      <Text style={styles.title}>Celular</Text>
       <View style={styles.grid}>
         {buttons.map((btn, index) => (
           <Button

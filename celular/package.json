@@ -8,6 +8,20 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "ios": {
+    "infoPlist": {
+      "NSCameraUsageDescription": "Este app precisa acessar a câmera para tirar fotos.",
+      "NSPhotoLibraryUsageDescription": "Este app precisa acessar suas fotos.",
+      "NSPhotoLibraryAddUsageDescription": "Este app precisa salvar fotos na sua galeria."
+    }
+  },
+  "android": {
+    "permissions": [
+      "CAMERA",
+      "READ_EXTERNAL_STORAGE",
+      "WRITE_EXTERNAL_STORAGE"
+    ]
+  },
   "dependencies": {
     "@react-native-community/slider": "4.5.6",
     "@react-navigation/bottom-tabs": "^7.3.13",
